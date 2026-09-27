@@ -438,9 +438,8 @@ footer{margin-top:28px;text-align:center;font-size:0.72rem;color:#64748b;line-he
     var stats = computeCollectionStats(col);
     var pct = stats.maxCards ? Math.round(stats.shinyTotal / stats.maxCards * 100) : 0;
     var rightStatText = col.type === "multi-location"
-      ? ("🌿 色背木守宮 " + stats.subA + "/27 ｜ ⚔️ 色背團體戰 " + stats.subB + "/27")
-      : col.type === "multi-location-single"
-    ;
+  ? ("🌿 色背木守宮 " + stats.subA + "/27 ｜ ⚔️ 色背團體戰 " + stats.subB + "/27")
+  : "";
 
     var filterBtnsHtml = col.filters.map(function(f) {
       var act = (filter === f.key) ? " active" : "";
