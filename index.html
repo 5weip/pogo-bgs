@@ -440,8 +440,7 @@ footer{margin-top:28px;text-align:center;font-size:0.72rem;color:#64748b;line-he
     var rightStatText = col.type === "multi-location"
       ? ("🌿 色背木守宮 " + stats.subA + "/27 ｜ ⚔️ 色背團體戰 " + stats.subB + "/27")
       : col.type === "multi-location-single"
-      ? ("⚡ 色背進度 " + stats.shinyTotal + "/" + stats.maxCards)
-      : ("📍 地標印章：" + col.locStamp);
+    ;
 
     var filterBtnsHtml = col.filters.map(function(f) {
       var act = (filter === f.key) ? " active" : "";
