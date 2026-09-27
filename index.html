@@ -164,7 +164,7 @@ footer{margin-top:28px;text-align:center;font-size:0.72rem;color:#64748b;line-he
 
   // ---- 背景圖自動嘗試多種副檔名機制 ----
   // resolvedBgByCol：卡冊等級的背景圖（single-bg 卡冊 + 首頁封面）
-  // resolvedBgByLoc：地標等級的背景圖（multi-location 卡冊裡每個地標各自的圖）
+  // resolvedBgByLoc：地標等級的背景圖（multi-location / multi-location-single 卡冊裡每個地標各自的圖）
   var resolvedBgByCol = {};
   var resolvedBgByLoc = {};
 
@@ -189,6 +189,9 @@ footer{margin-top:28px;text-align:center;font-size:0.72rem;color:#64748b;line-he
   var statesByCol = {};
   var storageAvailable = true;
 
+  // multi-location 系列型別（包含 multi-location 與 multi-location-single）共用的探測邏輯
+  var MULTI_LOCATION_TYPES = ["multi-location", "multi-location-single"];
+
   COLLECTIONS.forEach(function(col) {
     statesByCol[col.id] = {};
     try {
@@ -205,7 +208,7 @@ footer{margin-top:28px;text-align:center;font-size:0.72rem;color:#64748b;line-he
         resolvedBgByCol[col.id] = url;
         updateBgEls("data-col-bg", col.id, url);
       });
-    } else if (col.type === "multi-location") {
+    } else if (MULTI_LOCATION_TYPES.indexOf(col.type) !== -1) {
       col.locations.forEach(function(loc) {
         var locKey = col.id + "|" + loc.id;
         var locCandidates = DATA.bgCandidates(loc.bgType || col.bgType, loc.bgKey);
@@ -302,6 +305,13 @@ footer{margin-top:28px;text-align:center;font-size:0.72rem;color:#64748b;line-he
         if (rSh) { shinyTotal++; subB++; }
         if (isFamilyOwnedInView(st, "treecko", true)) cardTotal++;
         if (isFamilyOwnedInView(st, raidFam, true)) cardTotal++;
+      });
+    } else if (col.type === "multi-location-single") {
+      maxCards = col.locations.length;
+      col.locations.forEach(function(loc) {
+        var st = getItemState(col.id, loc.id);
+        if (isFamilyOwnedInView(st, col.fam, false)) shinyTotal++;
+        if (isFamilyOwnedInView(st, col.fam, true)) cardTotal++;
       });
     } else {
       maxCards = col.roster.length;
@@ -429,6 +439,8 @@ footer{margin-top:28px;text-align:center;font-size:0.72rem;color:#64748b;line-he
     var pct = stats.maxCards ? Math.round(stats.shinyTotal / stats.maxCards * 100) : 0;
     var rightStatText = col.type === "multi-location"
       ? ("🌿 色背木守宮 " + stats.subA + "/27 ｜ ⚔️ 色背團體戰 " + stats.subB + "/27")
+      : col.type === "multi-location-single"
+      ? ("⚡ 色背進度 " + stats.shinyTotal + "/" + stats.maxCards)
       : ("📍 地標印章：" + col.locStamp);
 
     var filterBtnsHtml = col.filters.map(function(f) {
@@ -475,6 +487,27 @@ footer{margin-top:28px;text-align:center;font-size:0.72rem;color:#64748b;line-he
         ].join(""));
       });
       cardsAreaHtml = "«main class='sets-grid' id='grid'»" + boxes.join("") + "«/main»";
+    } else if (col.type === "multi-location-single") {
+      // 每個地點只有一張卡（單一共用家族，例如皮卡丘進化鏈），不像 multi-location 那樣配成對
+      var singleLocCards = [];
+      col.locations.forEach(function(loc) {
+        var st = getItemState(col.id, loc.id);
+        var shOwned = isFamilyOwnedInView(st, col.fam, false);
+        if (filter === "MISS" && shOwned) return;
+        var searchable = (loc.id + " " + loc.eng + " " + loc.zh).toLowerCase();
+        if (query && searchable.indexOf(query) === -1) return;
+
+        var isShiny = !st.isNormal;
+        var ownedView = isFamilyOwnedInView(st, col.fam, st.isNormal);
+        var locKey = col.id + "|" + loc.id;
+        var bgUrl = resolvedBgByLoc[locKey] || "";
+        var stamp = loc.eng + (loc.zh && loc.zh !== loc.eng ? " • " + loc.zh : "");
+
+        singleLocCards.push(
+          buildPokeCardHtml("data-loc-bg", locKey, loc.id, stamp, bgUrl, col.fam, ownedView, (st.isNormal && shOwned), isShiny, buildDotsHtml(st, col.fam), true)
+        );
+      });
+      cardsAreaHtml = "«main class='single-poke-grid' id='grid'»" + singleLocCards.join("") + "«/main»";
     } else {
       var singleCards = [];
       var bgUrl = resolvedBgByCol[col.id] || "";
@@ -545,10 +578,10 @@ footer{margin-top:28px;text-align:center;font-size:0.72rem;color:#64748b;line-he
     var bgUrl = "";
     var stampText = "";
 
-    if (col.type === "multi-location") {
+    if (MULTI_LOCATION_TYPES.indexOf(col.type) !== -1) {
       var loc = col.locations.find(function(x) { return x.id === itemId; });
       if (!loc) return;
-      titlePrefix = loc.eng + " (" + loc.zh + ")";
+      titlePrefix = loc.zh && loc.zh !== loc.eng ? (loc.eng + " (" + loc.zh + ")") : loc.eng;
       bgUrl = resolvedBgByLoc[col.id + "|" + loc.id] || "";
       stampText = loc.eng;
     } else {
@@ -711,7 +744,7 @@ footer{margin-top:28px;text-align:center;font-size:0.72rem;color:#64748b;line-he
     } else if (action === "global-mode") {
       allNormalToggle = !allNormalToggle;
       var col = getCol(currentColId);
-      var list = col.type === "multi-location" ? col.locations : col.roster;
+      var list = col.type === "multi-location" || col.type === "multi-location-single" ? col.locations : col.roster;
       list.forEach(function(entry) {
         getItemState(currentColId, entry.id).isNormal = allNormalToggle;
       });

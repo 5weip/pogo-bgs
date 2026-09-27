@@ -46,7 +46,10 @@ window.POGO_DATA = (function() {
     salamence: { label: "🌙超級之夜：暴飛龍", baseName: "暴飛龍", baseDex: 373, stages: [{ key: "s0", name: "暴飛龍", dex: 373, stage: "頭目" }] },
     altaria: { label: "🌙超級之夜：七夕青鳥", baseName: "七夕青鳥", baseDex: 334, stages: [{ key: "s0", name: "七夕青鳥", dex: 334, stage: "頭目" }] },
     garchomp: { label: "🌙超級之夜：烈咬陸鯊", baseName: "烈咬陸鯊", baseDex: 445, stages: [{ key: "s0", name: "烈咬陸鯊", dex: 445, stage: "頭目" }] },
-    sceptile: { label: "🌙超級之夜：蜥蜴王", baseName: "蜥蜴王", baseDex: 254, stages: [{ key: "s0", name: "蜥蜴王", dex: 254, stage: "頭目" }] }
+    sceptile: { label: "🌙超級之夜：蜥蜴王", baseName: "蜥蜴王", baseDex: 254, stages: [{ key: "s0", name: "蜥蜴王", dex: 254, stage: "頭目" }] },
+    pikachu: { label: "⚡皮卡丘進化鏈", baseName: "皮卡丘", baseDex: 25, stages: [
+      { key: "p0", name: "皮卡丘", dex: 25, stage: "一階" }, { key: "p1", name: "雷丘", dex: 26, stage: "二階" }
+    ] }
   };
 
   var GOTOUR_2026_ROSTER = [
@@ -118,6 +121,36 @@ window.POGO_DATA = (function() {
       homeBanner: "assets/banners/go-tour-2026-los-angeles.png",
       bgType: "lc", bgKey: "go-tour-2026-los-angeles", locStamp: "Los Angeles",
       coverPokes: [716, 717, 445], filters: GOTOUR_2026_FILTERS, roster: GOTOUR_2026_ROSTER
+    },
+    {
+      id: "pokecenter18", type: "multi-location-single", storageKey: "pokecenter18_v1",
+      title: "⚡ Pokémon Center 限定皮卡丘", subtitle: "18 間日本 Pokémon Center 限定皮卡丘進化鏈背卡", tag: "PC限定・18 張",
+      homeBanner: "assets/banners/pokemoncenter.webp",
+      bgType: "lc",
+      coverBgKey: "pokecenter-tokyodx",
+      coverPokes: [25],
+      fam: "pikachu",
+      filters: [{ key: "ALL", label: "全部(18)" }],
+      locations: [
+        { id: "PC01", eng: "Okinawa", zh: "沖繩", bgKey: "pokecenter-okinawa" },
+        { id: "PC02", eng: "Fukuoka", zh: "福岡", bgKey: "pokecenter-fukuoka" },
+        { id: "PC03", eng: "Hiroshima", zh: "廣島", bgKey: "pokecenter-hiroshima" },
+        { id: "PC04", eng: "Kagawa", zh: "香川", bgKey: "pokecenter-kagawa" },
+        { id: "PC05", eng: "Osaka", zh: "大阪", bgKey: "pokecenter-osaka" },
+        { id: "PC06", eng: "Osaka DX", zh: "大阪 DX", bgKey: "pokecenter-osakadx" },
+        { id: "PC07", eng: "Kyoto", zh: "京都", bgKey: "pokecenter-kyoto" },
+        { id: "PC08", eng: "Kanazawa", zh: "金澤", bgKey: "pokecenter-kanazawa" },
+        { id: "PC09", eng: "Nagoya", zh: "名古屋", bgKey: "pokecenter-nagoya" },
+        { id: "PC10", eng: "Yokohama", zh: "橫濱", bgKey: "pokecenter-yokohama" },
+        { id: "PC11", eng: "Shibuya", zh: "澀谷", bgKey: "pokecenter-shibuya" },
+        { id: "PC12", eng: "Pokémon GO Lab", zh: "Pokémon GO Lab", bgKey: "pokecenter-golab" },
+        { id: "PC13", eng: "Mega Tokyo", zh: "Mega Tokyo", bgKey: "pokecenter-megatokyo" },
+        { id: "PC14", eng: "Tokyo DX", zh: "東京 DX", bgKey: "pokecenter-tokyodx" },
+        { id: "PC15", eng: "Tokyo Skytree Town", zh: "東京晴空塔城", bgKey: "pokecenter-skytreetown" },
+        { id: "PC16", eng: "Tokyo Bay", zh: "東京灣", bgKey: "pokecenter-tokyobay" },
+        { id: "PC17", eng: "Tohoku", zh: "東北", bgKey: "pokecenter-tohoku" },
+        { id: "PC18", eng: "Sapporo", zh: "札幌", bgKey: "pokecenter-sapporo" }
+      ]
     }
   ];
 
