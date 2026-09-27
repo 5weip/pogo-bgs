@@ -124,7 +124,7 @@ window.POGO_DATA = (function() {
     },
     {
       id: "pokecenter18", type: "multi-location-single", storageKey: "pokecenter18_v1",
-      title: "⚡ Pokémon Center 限定皮卡丘", subtitle: "18 間日本 Pokémon Center 限定皮卡丘進化鏈背卡", tag: "PC限定・18 張",
+      title: "⚡ Pokémon Center 皮卡丘", subtitle: "日本 Pokémon Center 限定皮卡丘", tag: "寶可夢中心・18 張",
       homeBanner: "assets/banners/pokemoncenter.webp",
       bgType: "lc",
       coverBgKey: "pokecenter-tokyodx",
