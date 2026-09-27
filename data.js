@@ -40,7 +40,7 @@ window.POGO_DATA = (function() {
     gardevoir: { label: "☀️沙奈朵", baseName: "沙奈朵", baseDex: 282, stages: [{ key: "s0", name: "沙奈朵", dex: 282, stage: "頭目" }] },
     absol: { label: "☀️阿勃梭魯", baseName: "阿勃梭魯", baseDex: 359, stages: [{ key: "s0", name: "阿勃梭魯", dex: 359, stage: "頭目" }] },
     lucario: { label: "☀️路卡利歐", baseName: "路卡利歐", baseDex: 448, stages: [{ key: "s0", name: "路卡利歐", dex: 448, stage: "頭目" }] },
-    dragonite: { label: "🌙超級之夜：快龍", baseName: "快龍", baseDex: 6, stages: [{ key: "s0", name: "快龍", dex: 6, stage: "頭目" }] },
+    dragonite: { label: "🌙超級之夜：快龍", baseName: "快龍", baseDex: 149, stages: [{ key: "s0", name: "快龍", dex: 149, stage: "頭目" }] },
     charizard: { label: "🌙超級之夜：噴火龍", baseName: "噴火龍", baseDex: 6, stages: [{ key: "s0", name: "噴火龍", dex: 6, stage: "頭目" }] },
     ampharos: { label: "🌙超級之夜：電龍", baseName: "電龍", baseDex: 181, stages: [{ key: "s0", name: "電龍", dex: 181, stage: "頭目" }] },
     salamence: { label: "🌙超級之夜：暴飛龍", baseName: "暴飛龍", baseDex: 373, stages: [{ key: "s0", name: "暴飛龍", dex: 373, stage: "頭目" }] },
