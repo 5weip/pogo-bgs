@@ -3,7 +3,7 @@ window.POGO_DATA = (function() {
   var BG_PREFIXES = { lc: "lc-", sb: "sb-" };
   // 之後 Dittobase 換了圖片格式，或又新增一種背卡前綴的副檔名時，
   // 只要在這裡加一項就好，不用改任何渲染邏輯。
-  var BG_EXTS = ["png", "webp"];
+  var BG_EXTS = ["png", "webp","jpg"];
 
   // 依序組出候選網址清單，index.html 執行時會依序嘗試，成功的那個就是最終網址
   function bgCandidates(bgType, bgKey) {
